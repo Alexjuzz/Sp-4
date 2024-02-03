@@ -4,15 +4,11 @@ import Spring.Home.Home4.User.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.sql.Struct;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Repository
 public class UserRepository {
-    private Map<Long, User> users;
+    private final Map<Long, User> users;
 
     @Autowired
     public UserRepository() {
@@ -39,10 +35,11 @@ public class UserRepository {
         return currentUsers;
     }
     public boolean delUserById(Long id){
-        if(users.size() == 0 || users.size() < id){
+        if(users.isEmpty() || users.size() < id){
             return false;
         }
         users.remove(id);
         return true;
     }
+
 }

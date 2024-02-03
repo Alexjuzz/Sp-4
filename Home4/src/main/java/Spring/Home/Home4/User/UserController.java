@@ -58,6 +58,12 @@ public class UserController {
         }
         return "badNotification";
     }
+    @GetMapping(value = "/sort")
+    public String sortUsers(Model model){
+        List<User> currUsers = userService.sortByName();
+        model.addAttribute("users",currUsers);
+        return "sort";
+    }
 
 
 }

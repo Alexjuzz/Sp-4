@@ -1,14 +1,18 @@
 package Spring.Home.Home4.User;
 
 import Spring.Home.Home4.Repositories.UserRepository;
-import Spring.Home.Home4.User.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class UserService {
+    private static boolean reverse = true;
     @Autowired
     private final UserRepository userRepository;
 
@@ -55,7 +59,25 @@ public class UserService {
         return userRepository.getUserById(id);
     }
 
-    public boolean delById(Long id){
+    public boolean delById(Long id) {
         return userRepository.delUserById(id);
     }
+
+    public List<User> sortByName() {
+        Map<Long, User> currMap = userRepository.getAllUsers();
+        Stream<User> userStream = currMap.values().stream();
+
+        List<User> sortedUsers = userStream
+                .sorted(reverse ?
+                        Comparator.comparing(User::getName, String::compareToIgnoreCase).reversed() :
+                        Comparator.comparing(User::getName, String::compareToIgnoreCase))
+                .collect(Collectors.toList());
+
+        reverse = !reverse;
+
+        return sortedUsers;
+    }
+
+
 }
+
