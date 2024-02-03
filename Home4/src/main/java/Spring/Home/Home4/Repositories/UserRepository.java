@@ -38,4 +38,11 @@ public class UserRepository {
         }
         return currentUsers;
     }
+    public boolean delUserById(Long id){
+        if(users.size() == 0 || users.size() < id){
+            return false;
+        }
+        users.remove(id);
+        return true;
+    }
 }
