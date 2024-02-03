@@ -53,7 +53,7 @@ public class UserController {
     public String delUserById(Model model, @PathVariable("id") Long id) {
         User currUser = userService.getById(id);
         if(userService.delById(id)){
-            model.addAttribute("delUser", currUser);
+            model.addAttribute("user", currUser);
             return "successDel";
         }
         return "badNotification";
